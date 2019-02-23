@@ -123,6 +123,7 @@ select_lang()
             [1-"${#LANGS[@]}"]) # support max 9 languages for now
                 # set terminal language variable
                 export LANG="${lid[${REPLY}]}.UTF-8"
+                export LC_CTYPE="${lid[${REPLY}]}.UTF-8"
                 # import language file
                 . "./locale/${lid[${REPLY}]}"
                 break;;
@@ -194,9 +195,9 @@ main() {
     message "$WELCOME"
 
     # DEBUG
-    message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
-    message "Essa outra mensagem possui linhas bem grandes\nO que não éãããããããã"
-    message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
+    # message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
+    # message "Essa outra mensagem possui linhas bem grandes\nO que não éãããããããã"
+    # message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
     # exit
 
     # do loop until aux be filled
@@ -243,7 +244,10 @@ LyAgIF98IF8vICBfXCBfX198IF9fX3wgIF8vICBfXCBfX19fLyBfX19fLyBfX198IF9fX18vICAg
 X3wKCg=="
 
 select_lang
+# DEBUG
 # . "./locale/pt_BR"
+# LANG="pt_BR.UTF-8"
+# LC_CTYPE="pt_BR.UTF-8"
 
 # let the show begin
 main
