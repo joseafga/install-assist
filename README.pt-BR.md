@@ -6,8 +6,9 @@ Ferramenta interativa para guiar o usuário passo a passo na instalação da Maz
 
 Dependências
 ------
-- Bash >= 4.4
-- Coreutils >= 8.27
+- bash >= 4.4
+- coreutils >= 8.27
+- sed >= 4.7
 
 *Talvez possa funcionar em versões anteriores, porém não foi testado.*
 

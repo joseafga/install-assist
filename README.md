@@ -6,8 +6,9 @@ Interactive tool to guide the user step by step in the Mazon OS installation.
 
 Dependencies
 ------
-- Bash >= 4.4
-- Coreutils >= 8.27
+- bash >= 4.4
+- coreutils >= 8.27
+- sed >= 4.7
 
 *Maybe can work in older versions but has not been tested.*
 
