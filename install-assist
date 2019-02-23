@@ -145,15 +145,16 @@ message() {
     mapfile -t msg <<< $(echo -e "$1")
     #declare -p msg  # DEBUG
     
+    # initialize local vars
     local s=("${msg[@]}")
-    local placeholder=''
-    local length=0
+    local line=''
+    local llen=0
     
     # get the big one
     for l in "${msg[@]}"; do
-        if [ $length -lt ${#l} ]; then
-            placeholder="$l"
-            length="${#l}"
+        if [ $llen -lt ${#l} ]; then
+            line="${l//?/─}"  # create a line with text width
+            llen="${#l}"  # line length
         fi
     done
 
@@ -161,24 +162,24 @@ message() {
     tput cuf1 # 1 char left margin
     # checks if have title arg
     if [ $2 ]; then
-        # some calcs 
-        # ((phase_length - title_length - spaces) / just_left_lenght)
-        local x=$((($length - ${#2} - 2) / 2))
+        # title length
+        local tlen=${#2}
+        # some calcs ((phase_len - title_len - spaces) / just_left_lenght)
+        local x=$((($llen - $tlen - 2) / 2))
 
-        # print full line a
-        # replace with sed using quantifiers of words length
-        painter "┌${placeholder//?/─}┐" 'green' | sed -E "s/(─.{${x}})(.{${#2}})/\1 ${2} /"
+        # print line and replace with sed using quantifiers of words length
+        painter "┌${line}┐" 'green' | sed -E "s/(─.{$x})(.{$tlen})/\1 $2 /"
     else
         # header without
-        painter "┌─${placeholder//?/─}─┐" 'green'
+        painter "┌─${line}─┐" 'green'
     fi
     
     # print content message line by line
-    printf " $(painter "│ %-${length}s │" 'green')\n" "${msg[@]}"
+    printf " $(painter "│ %-${llen}s │" 'green')\n" "${msg[@]}"
     
     # bottom/
     tput cuf1  # 1 char left margin
-    painter "└─${placeholder//?/─}─┘" 'green'
+    painter "└─${line}─┘" 'green'
 }
 
 
@@ -193,9 +194,9 @@ main() {
     message "$WELCOME"
 
     # DEBUG
-    # message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
-    # message "Essa outra mensagem possui linhas bem grandes\nO que não éãããããããã"
-    # message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
+    message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
+    message "Essa outra mensagem possui linhas bem grandes\nO que não éãããããããã"
+    message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
     # exit
 
     # do loop until aux be filled
@@ -207,7 +208,7 @@ main() {
         
         echo $(eval "$cmd")
         
-        [[ "$cmd" = 'exit' ]] && loop='set'
+        [[ "$cmd" = 'exit' ]] && aux='set'
     done
     
     message "$DONE"  # just for test
