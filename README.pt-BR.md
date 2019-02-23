@@ -24,5 +24,5 @@ Uso
 
 Licença
 ------
-**Licença MIT**
+**Licença MIT**  
 Veja o arquivo [LICENSE](LICENSE).
