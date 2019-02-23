@@ -206,12 +206,18 @@ main() {
         echo -ne "$(painter "$USER@$HOSTNAME" "light_green"):# "
         read cmd  # read command
         
-        echo $(eval "$cmd")
-        
-        [[ "$cmd" = 'exit' ]] && aux='set'
+        # checks if command is not null
+        if [ -n "$cmd" ]; then
+            echo $(eval "$cmd")
+            [[ "$cmd" = 'exit' ]] && aux='set'
+        fi
     done
     
-    message "$DONE"  # just for test
+    # just for test
+    message "$DONE"
+
+    # all done .. exit
+    exit 0
 }
 
 
