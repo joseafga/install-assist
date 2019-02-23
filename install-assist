@@ -146,12 +146,12 @@ message() {
     #declare -p msg  # DEBUG
     
     local s=("${msg[@]}")
-    local placeholder
-    local length
+    local placeholder=''
+    local length=0
     
     # get the big one
     for l in "${msg[@]}"; do
-        if [[ $length < ${#l} ]]; then
+        if [ $length -lt ${#l} ]; then
             placeholder="$l"
             length="${#l}"
         fi
@@ -176,7 +176,7 @@ message() {
     # print content message line by line
     printf " $(painter "│ %-${length}s │" 'green')\n" "${msg[@]}"
     
-    # bottom
+    # bottom/
     tput cuf1  # 1 char left margin
     painter "└─${placeholder//?/─}─┘" 'green'
 }
@@ -193,8 +193,10 @@ main() {
     message "$WELCOME"
 
     # DEBUG
-    #message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
-    #message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
+    # message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
+    # message "Essa outra mensagem possui linhas bem grandes\nO que não éãããããããã"
+    # message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
+    # exit
 
     # do loop until aux be filled
     while [ -z "$aux" ]; do
@@ -234,6 +236,7 @@ LyAgIF98IF8vICBfXCBfX198IF9fX3wgIF8vICBfXCBfX19fLyBfX19fLyBfX198IF9fX18vICAg
 X3wKCg=="
 
 select_lang
+# . "./locale/pt_BR"
 
 # let the show begin
 main
