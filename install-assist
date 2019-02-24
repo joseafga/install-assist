@@ -106,7 +106,6 @@ painter()
     [ -n "$3" ] && colored="${colored}\e[${COLORS[bg_${3}]}m"
     
     # concat string and add end of color
-#     echo "${colored}${1}\e[0m"  # debug
     echo -e "${colored}${1}\e[0m"
 }
 
@@ -208,12 +207,6 @@ main() {
     # initial message
     message "$WELCOME_MSG" "$WELCOME_TITLE"
 
-    # DEBUG
-    # message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"
-    # message "Essa outra mensagem possui linhas bem grandes\nO que não éãããããããã"
-    # message "Essa mensagem possui\nMultiplas linhas\ncomo é possivel verificar\n:)" "Título"
-    # exit
-
     # do loop until aux be filled
     while [ -z "$aux" ]; do
         # fake PS1
@@ -239,19 +232,14 @@ main() {
 case $1 in
     -h|--help) echo "Se vira ..." ;;  # TODO
     -v|--version) show_version ;;
-    *)
-        # default
-        
+    *)  # default
         show_logo
         select_lang
-        # DEBUG
-        # . "./locale/pt_BR"
-        # LANG="pt_BR.UTF-8"
-        # LC_CTYPE="pt_BR.UTF-8"
 
         # let the show begin
         main
     ;;
 esac
 
+# all done... exit
 exit 0
