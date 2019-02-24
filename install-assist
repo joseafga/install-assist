@@ -68,6 +68,19 @@ show_version()
 
 
 #----------------------------------
+# Print converted ASCII logo to prevent escape erros
+#----------------------------------
+show_logo()
+{
+    base64 -d <<< "CiBfIF98ICAgXCB8ICAgX198IF9fIF9ffCAgXCAgICB8ICAgIHwgICAgICAgXCAgICAgX198ICAg
+X198IF8gX3wgICBfX3wgX18gX198CiAgIHwgICAuICB8IFxfXyBcICAgIHwgICBfIFwgICB8ICAg
+IHwgICAgICBfIFwgIFxfXyBcIFxfXyBcICAgfCAgXF9fIFwgICAgfAogX19ffCBffFxffCBfX19f
+LyAgIF98IF8vICBfXCBfX198IF9fX3wgIF8vICBfXCBfX19fLyBfX19fLyBfX198IF9fX18vICAg
+X3wKCg=="
+}
+
+
+#----------------------------------
 # Painter will color the strings
 #----------------------------------
 # based on PHP CLI Colors
@@ -114,15 +127,20 @@ select_lang()
     select option in "${LANGS[@]}"; do
         # switch case number selected
         case "$REPLY" in
-            "0") echo "Bye bye"; exit 0;;
+            "0")
+                echo "Bye bye"
+                exit 0
+            ;;
             [1-"${#LANGS[@]}"]) # support max 9 languages for now
                 # set terminal language variable
                 export LANG="${lid[${REPLY}]}.UTF-8"
                 export LC_CTYPE="${lid[${REPLY}]}.UTF-8"
                 # import language file
                 . "./locale/${lid[${REPLY}]}"
-                break;;
-            *) echo "Incorrect input: select a number 0-${#LANGS[@]}";;
+                
+                break
+            ;;
+            *) echo "Incorrect input: select a number 0-${#LANGS[@]}" ;;
         esac
     done
 }
@@ -212,9 +230,6 @@ main() {
     
     # just for test
     message "$DONE"
-
-    # all done .. exit
-    exit 0
 }
 
 
@@ -222,28 +237,21 @@ main() {
 # Args actions
 #----------------------------------
 case $1 in
-    -h|--help)
-        echo "Se vira ..."
-        exit 0
-    ;;
-    -v|--version)
-        show_version
-        exit 0
+    -h|--help) echo "Se vira ..." ;;  # TODO
+    -v|--version) show_version ;;
+    *)
+        # default
+        
+        show_logo
+        select_lang
+        # DEBUG
+        # . "./locale/pt_BR"
+        # LANG="pt_BR.UTF-8"
+        # LC_CTYPE="pt_BR.UTF-8"
+
+        # let the show begin
+        main
     ;;
 esac
 
-# print converted ASCII logo to prevent escape erros
-base64 -d <<< "CiBfIF98ICAgXCB8ICAgX198IF9fIF9ffCAgXCAgICB8ICAgIHwgICAgICAgXCAgICAgX198ICAg
-X198IF8gX3wgICBfX3wgX18gX198CiAgIHwgICAuICB8IFxfXyBcICAgIHwgICBfIFwgICB8ICAg
-IHwgICAgICBfIFwgIFxfXyBcIFxfXyBcICAgfCAgXF9fIFwgICAgfAogX19ffCBffFxffCBfX19f
-LyAgIF98IF8vICBfXCBfX198IF9fX3wgIF8vICBfXCBfX19fLyBfX19fLyBfX198IF9fX18vICAg
-X3wKCg=="
-
-select_lang
-# DEBUG
-# . "./locale/pt_BR"
-# LANG="pt_BR.UTF-8"
-# LC_CTYPE="pt_BR.UTF-8"
-
-# let the show begin
-main
+exit 0
