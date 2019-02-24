@@ -84,18 +84,13 @@ painter()
 {
     local colored='';
     
-    # another check options
-    # what is better?
-    # if [ -n "$2" ]
-    # if [ ! -z "$2" ]
-    
     # add foreground color
-    if [ $2 ] || [[ "$2" != "none" ]]; then
+    if [ -n "$2" ] || [[ "$2" != "none" ]]; then
         colored="${colored}\e[${COLORS[fg_${2}]}m"
     fi
     
     # add background color
-    [ $3 ] && colored="${colored}\e[${COLORS[bg_${3}]}m"
+    [ -n "$3" ] && colored="${colored}\e[${COLORS[bg_${3}]}m"
     
     # concat string and add end of color
 #     echo "${colored}${1}\e[0m"  # debug
@@ -162,12 +157,13 @@ message() {
     # header
     tput cuf1 # 1 char left margin
     # checks if have title arg
-    if [ $2 ]; then
+    if [ -n "$2" ]; then
         # title length
         local tlen=${#2}
         # some calcs ((phase_len - title_len - spaces) / just_left_lenght)
         local x=$((($llen - $tlen - 2) / 2))
 
+        # FIXME: printf padding by bytes, bug specials characters
         # print line and replace with sed using quantifiers of words length
         painter "┌${line}┐" 'green' | sed -E "s/(─.{$x})(.{$tlen})/\1 $2 /"
     else
@@ -192,7 +188,7 @@ main() {
     local aux=''
     
     # initial message
-    message "$WELCOME"
+    message "$WELCOME_MSG" "$WELCOME_TITLE"
 
     # DEBUG
     # message "Essa outra mensagem possui linhas bem grandes\nO que não é recomendável, porém é possível" "Títuluzinho"

@@ -1,2 +1,3 @@
-WELCOME="Obrigado por instalar a Mazon OS!\nAgora iremos fazer a configuração inicial do sistema."
-DONE="Tudo pronto. Agora basta digitar 'startx' para inciar a sessão do X e se divertir!"
+WELCOME_TITLE="Obrigado por instalar a Mazon OS!"
+WELCOME_MSG="Agora iremos fazer a configuração inicial do sistema."
+DONE="Tudo pronto.\n\nAgora basta digitar 'startx' para inciar a sessão do X e se divertir!"
