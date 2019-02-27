@@ -10,8 +10,8 @@ Upon hearing about the difficulty of manually installing a system can cause afra
 
 Dependencies
 ------
-- bash >= 4.4
-- coreutils >= 8.27
+- GNU bash >= 4.4
+- GNU coreutils (base64) >= 8.27
 - GNU sed >= 4.7
 
 *Maybe can work in older versions but has not been tested.*

@@ -10,8 +10,8 @@ Ao ouvir sobre a dificuldade de instalar manualmente um sistema poder afastar os
 
 Dependências
 ------
-- bash >= 4.4
-- coreutils >= 8.27
+- GNU bash >= 4.4
+- GNU coreutils (base64) >= 8.27
 - GNU sed >= 4.7
 
 *Talvez possa funcionar em versões anteriores, porém não foi testado.*
