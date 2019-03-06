@@ -1,3 +1,3 @@
-WELCOME_TITLE="Thank you for install Mazon OS!""
-WELCOME_MSG="Now we will make the initial system configuration."
-DONE="All done.\n\nNow just type 'startx' to start X session and enjoy!"
+WELCOME_TITLE='Thank you for install Mazon OS!'
+WELCOME_MSG='Now we will make the initial system configuration.'
+DONE='All done.\n\nNow just type 'startx' to start X session and enjoy!'
